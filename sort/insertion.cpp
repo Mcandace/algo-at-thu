@@ -20,7 +20,7 @@ int main()
     {
         tmp = num.at(i);
         j = i - 1;
-        while (j >= 0 && num[j] > tmp)
+        while (j >= 0 && num.at(j) > tmp)
         {
             num.at(j+1) = num.at(j);
             --j;

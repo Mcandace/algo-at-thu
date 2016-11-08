@@ -18,18 +18,14 @@ int main()
     const int len = num.size();
     for (i = 1; i < len; ++i)
     {
-        tmp = num.at(i);
-        j = i - 1;
-        while (j >= 0 && num.at(j) > tmp)
-        {
-            num.at(j+1) = num.at(j);
-            --j;
-        }
-        num.at(j+1) = tmp;
+        tmp = num[i];
+        for (j = i - 1; j >=0 && num[j] > tmp; --j)
+            num[j+1] = num[j];
+        num[j+1] = tmp;
     }
     cout << "sorted array:" << endl << num.at(0);
     for (i = 1; i < len; ++i)
-        cout << " " << num.at(i);
+        cout << " " << num[i];
     cout << endl;
     return 0;
 }

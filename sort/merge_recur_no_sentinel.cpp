@@ -34,45 +34,43 @@ void devide(vector<int> & num, int start, int end)
 
 void merge(vector<int> & num, int start, int mid, int end)
 {
-    vector<int> left, right;
-    vector<int>::iterator it = num.begin();
-    left.assign(it+start, it+mid+1);
-    right.assign(it+mid+1, it+end+1);
-    int leftIndex = 0, rightIndex = 0, thruIndex = start, leftIndexMax = mid - start + 1, rightIndexMax = end - mid;
-    bool leftDone = false; //true for left used up, false for right used up
-    for (it = num.begin() + thruIndex; thruIndex <= end; ++thruIndex)
+    vector<int>::const_iterator it = num.begin(); // for the generation of left and right, see below
+    vector<int> left(it+start, it+mid+1), right(it+mid+1, it+end+1);
+    /*
+     * leftIndex: points to the num under manipulation in the left array now.
+     * leftIndexMax: the max index (accessible) of left array.
+     * the same for right-xxx.
+     */
+    int leftIndex = 0, rightIndex = 0, leftIndexMax = mid - start, rightIndexMax = end - mid - 1;
+    for (; start <= end; ++start)
     {
         if (left[leftIndex] < right[rightIndex])
         {
-            *it = left[leftIndex];
+            num[start] = left[leftIndex];
+            if (leftIndex == leftIndexMax)
+            {
+                /* if left index reached the boundary,
+                 * then just copy the rest in right to mother.
+                 * and finish the merge part afterwards.
+                 */
+                for (++start; start <= end; ++start, ++rightIndex)
+                    num[start] = right[rightIndex];
+                return;
+            }
             ++leftIndex;
         }
         else
         {
-            *it = right[rightIndex];
+            num[start] = right[rightIndex];
+            if (rightIndex == rightIndexMax)
+            {
+                // same as above
+                for (++start; start <= end; ++start, ++leftIndex)
+                    num[start] = left[leftIndex];
+                return;
+            }
             ++rightIndex;
         }
-        ++it;
-        if (leftIndex == leftIndexMax)
-        {
-            leftDone = true;
-            break;
-        }
-        if (rightIndex == rightIndexMax)
-        {
-            leftDone = false;
-            break;
-        }
-    }
-    if (leftDone)
-    {
-        for (; rightIndex < rightIndexMax; ++rightIndex, ++it)
-            *it = right[rightIndex];
-    }
-    else
-    {
-        for (; leftIndex < leftIndexMax; ++leftIndex, ++it)
-            *it = left[leftIndex];
     }
 }
 

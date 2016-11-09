@@ -23,7 +23,7 @@ int main()
             num[j+1] = num[j];
         num[j+1] = tmp;
     }
-    cout << "sorted array:" << endl << num.at(0);
+    cout << "sorted array:" << endl << num[0];
     for (i = 1; i < len; ++i)
         cout << " " << num[i];
     cout << endl;

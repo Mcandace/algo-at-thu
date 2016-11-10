@@ -80,12 +80,12 @@ int main()
     const int maxIndex = priceDiff.size() - 1; // 最大下標
 
     maxSubarrayInfo result = maxSubarray(priceDiff, 0, maxIndex); // 調用函數，對整個數組計算
-    if (result.sum > 0)
+    if (result.sum > 0) // 若有獲利
         cout << "第" << result.low + 1 << "日買進第" << result.high + 1 << "日賣出就對了！" << endl;
-    else
-        cout << "別買了，必虧" << endl;
+    else // 若不可能獲利
+        cout << "別買了" << endl;
 
-    fin.close();
+    fin.close(); // 關閉文件
     cout << "執行時間: " << clock() - startTime << "ms" << endl; // 輸出此段程式運行時間
     return 0;
 }

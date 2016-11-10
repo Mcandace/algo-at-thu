@@ -1,9 +1,7 @@
 /*
  * brute
  * not creating price differnce array
- * but just pick 2 days and substraction
- *
- * for check use
+ * but just pick 2 days' prices and substraction
  */
 
 #include <iostream>
@@ -27,30 +25,29 @@ int main()
     while (fin >> tmp) // 讀到文件結束為止
         price.push_back(tmp); // 將值依次加入差價數組
 
-    tmp = 0;
-    int buyDay = 0, sellDay = 0, i, j, curBenefit;
     const int lastDay = price.size() - 1; // 最後一天的下標
+    int buyDay, sellDay, i, j, curBenefit;
+    tmp = 0; // tmp用以記錄最大獲利
     for (i=0; i<lastDay; ++i) // 對於買入的日期循環
     {
-        for (j=i+1; j<=lastDay; ++j)
+        for (j=i+1; j<=lastDay; ++j) // 對賣出日期循環
         {
-            curBenefit = price[j] - price[i];
-            if (tmp < curBenefit)
+            curBenefit = price[j] - price[i]; // 當前情況下獲利
+            if (tmp < curBenefit) // 若超過之前的最大獲利
             {
-                tmp = curBenefit;
-                sellDay = j;
-                buyDay = i;
+                tmp = curBenefit; // 更新最大獲利
+                buyDay = i; // 更新買入日期
+                sellDay = j; // 更新賣出日期
             }
         }
     }
-    if (tmp > 0)
+    if (tmp > 0) // 若有獲利
         cout << "第" << buyDay + 1 << "日買進第" << sellDay << "日賣出就對了！" << endl;
-    else
-        cout << "別買了，必虧" << endl;
+    else // 若不可能獲利
+        cout << "別買了" << endl;
 
-    fin.close();
+    fin.close(); // 關閉文件
     cout << "執行時間: " << clock() - startTime << "ms" << endl; // 輸出此段程式運行時間
     return 0;
 }
-
 

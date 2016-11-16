@@ -34,7 +34,7 @@ void maxheapify(vector<int> & heap, int i)
 void buildMaxheap(vector<int> & heap)
 {
     maxIndex = heap.size() - 1; // initialize here
-    for (int i=maxIndex/2; i>=0; --i)
+    for (int i = maxIndex / 2; i >= 0; --i)
         maxheapify(heap, i);
 }
 

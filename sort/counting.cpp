@@ -24,13 +24,13 @@ int main()
     int *cdf = new int [k+1], *sorted = new int [len];
     memset(cdf, 0, sizeof(int) * (k + 1));
 
-    for (i=0; i<len; ++i) // calc pdf first
+    for (i = 0; i < len; ++i) // calc pdf first
         ++cdf[num[i]];
 
-    for (i=1; i<=k; ++i) // calc cdf now
+    for (i = 1; i <= k; ++i) // calc cdf now
         cdf[i] += cdf[i-1];
 
-    for (i=len-1; i>=0; --i)
+    for (i = len-1; i >= 0; --i)
     {
         // for n numbers, the max num's cdf is n,
         // but the index for this max num is n-1

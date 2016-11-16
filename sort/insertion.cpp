@@ -19,7 +19,7 @@ int main()
     for (i = 1; i < len; ++i)
     {
         tmp = num[i];
-        for (j = i - 1; j >=0 && num[j] > tmp; --j)
+        for (j = i - 1; j >= 0 && num[j] > tmp; --j)
             num[j+1] = num[j];
         num[j+1] = tmp;
     }

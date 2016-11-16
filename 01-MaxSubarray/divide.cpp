@@ -25,18 +25,22 @@ maxSubarrayInfo maxCrossSubarray(const vector<int> & mother, int low, int mid, i
         leftSumIndex = mid, rightSumIndex = mid + 1; // 記錄最大和時的下標，初始化同上
 
     for (curSum = mother[(i = mid)]; i >= low; curSum += mother[--i]) // 尋找左邊子序列最大
+    {
         if (leftSum < curSum)
         {
             leftSum = curSum;
             leftSumIndex = i;
         }
+    }
 
     for (curSum = mother[(i = mid + 1)]; i <= high; curSum += mother[++i]) // 尋找右邊子序列最大
+    {
         if (rightSum < curSum)
         {
             rightSum = curSum;
             rightSumIndex = i;
         }
+    }
 
     return maxSubarrayInfo(leftSumIndex, rightSumIndex, leftSum + rightSum);
 }
@@ -46,7 +50,7 @@ maxSubarrayInfo maxSubarray(const vector<int> & mother, int low, int high)
     if (low == high) // 只有一個值時，無需解決，直接返回
         return maxSubarrayInfo(low, high, mother[low]);
 
-    int mid = low + (high - low) / 2; // 計算中點 ps避免 (low + high) 可能的溢出
+    int mid = low + ((high - low) >> 1); // 計算中點 p.s.避免 (low + high) 可能的溢出
     maxSubarrayInfo leftMax = maxSubarray(mother, low, mid); // 最大和出現在左側
     maxSubarrayInfo rightMax = maxSubarray(mother, mid+1, high); // 最大和出現在右側
     maxSubarrayInfo midMax = maxCrossSubarray(mother, low, mid, high); //最大和跨過中點
@@ -81,12 +85,12 @@ int main()
 
     maxSubarrayInfo result = maxSubarray(priceDiff, 0, maxIndex); // 調用函數，對整個數組計算
     if (result.sum > 0) // 若有獲利
-        cout << "第" << result.low + 1 << "日買進第" << result.high + 1 << "日賣出就對了！" << endl;
+        cout << "第" << result.low << "日收盤買進第" << result.high + 1 << "日收盤賣出就對了！" << endl;
     else // 若不可能獲利
         cout << "別買了" << endl;
 
     fin.close(); // 關閉文件
-    cout << "執行時間: " << clock() - startTime << "ms" << endl; // 輸出此段程式運行時間
+    cout << "執行時間: " << clock() - startTime << "ms" << endl; // 輸出程式運行時間
     return 0;
 }
 

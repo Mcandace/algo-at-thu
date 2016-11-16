@@ -47,7 +47,7 @@ int main()
         }
     }
     if (maxBenefit > 0)
-        cout << "第" << buyDay + 1 << "日買進第" << sellDay + 1 << "日賣出就對了！" << endl;
+        cout << "第" << buyDay << "日買進第" << sellDay + 1 << "日賣出就對了！" << endl;
     else
         cout << "別買了，必虧" << endl;
 
